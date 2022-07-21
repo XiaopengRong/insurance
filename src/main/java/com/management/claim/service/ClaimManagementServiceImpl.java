@@ -10,6 +10,7 @@ import com.management.claim.repository.ClaimManagementRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -24,6 +25,11 @@ public class ClaimManagementServiceImpl implements ClaimManagementService{
 		claimRepository.save(claim);
 		logger.info("Claim Saved.");
 		return claim;
+	}
+	
+	@Override
+	public Optional<Claim> getClaim(Long id) {
+		return claimRepository.findById(id);
 	}
 
 	@Override
