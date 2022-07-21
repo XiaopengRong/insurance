@@ -53,7 +53,7 @@ public class FileServiceImpl implements FileService {
            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
            
            FileEntity fileEntity = FileEntity.builder()
-           		.name(fileName).type(file.getContentType()).DIR_location(path.toString()).claim(claim)
+           		.name(fileName).type(file.getContentType()).DIR_location(file.getOriginalFilename()).claim(claim)
            		.build();
       
             return fileRepository.save(fileEntity);
