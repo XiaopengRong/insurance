@@ -6,6 +6,8 @@ import com.management.claim.service.FileService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,7 +34,22 @@ public class FileController {
                 .toUriString();
  
         return new UploadFileResponse(fileEntity.getName(), fileDownloadUri,
-                file.getContentType(),fileEntity.getDIR_location(), file.getSize());
+                file.getContentType(),fileEntity.getDIR_location());
+    }
+    
+    
+    
+    @GetMapping("/getFile/{claimId}")
+    public UploadFileResponse downloadFile(@PathVariable Long claimId) {
+        // Load file from database
+    	List<FileEntity> fileEntity = fileService.getFile(claimId);
+        
+    	String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileEntity.get(0).getFileId())
+                .toUriString();
+    	
+        return new UploadFileResponse(fileEntity.get(0).getName(), fileDownloadUri,fileEntity.get(0).getType(),fileEntity.get(0).getName());
     }
 
 //    @GetMapping("/downloadFile/{id}")

@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -29,7 +30,7 @@ public class FileServiceImpl implements FileService {
     
     private final ClaimManagementRepository claimManagementRepository;
     
-    private final String UPLOAD_DIR = "C:\\Users\\74189\\Downloads\\claim-dev\\claim\\src\\main\\java\\uploads\\";
+    private final String UPLOAD_DIR = "C:\\Users\\74189\\Downloads\\insuranceFrontend-master\\insuranceFrontend-master\\";
     
     @Override
     public FileEntity storeFile(MultipartFile file, Long id) {
@@ -63,8 +64,8 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileEntity getFile(String fileId) {
-        return fileRepository.findById(fileId)
-                .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));
+    public List<FileEntity> getFile(Long claimId) {
+    	List<FileEntity> fileList = fileRepository.findByClaimId(claimId);
+        return fileList;
     }
 }

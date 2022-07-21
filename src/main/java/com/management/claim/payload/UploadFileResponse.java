@@ -5,14 +5,14 @@ public class UploadFileResponse {
     private String fileDownloadUri;
     private String fileType;
     private String fileLocation;
-    private long size;
 
-    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType,String fileLocation,long size) {
+
+    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType,String fileLocation) {
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.fileLocation = fileLocation;
-        this.size = size;
+
     }
 
     public String getFileName() {
@@ -39,13 +39,6 @@ public class UploadFileResponse {
         this.fileType = fileType;
     }
 
-    public long getSize() {
-        return size;
-    }
-
-    public void setSize(long size) {
-        this.size = size;
-    }
 
 	public String getFileLocation() {
 		return fileLocation;
