@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.*;
 import com.management.claim.model.Claim;
 import com.management.claim.service.ClaimManagementService;
@@ -35,6 +36,18 @@ public class ClaimManagementController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/claim/{id}")
+	public ResponseEntity<Claim> getClaim(@PathVariable(value = "id") Long id) {
+		logger.info("Trying to get the claim...");
+		Optional<Claim> claimData = claimManagementService.getClaim(id);
+		if (claimData.isPresent()) {
+			return new ResponseEntity<>(claimData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@PostMapping(value = "/claim", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Claim> createClaim(@RequestBody Claim claim) {
 		try {
